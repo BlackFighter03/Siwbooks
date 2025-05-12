@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SiwBooks</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+    <div class="hero">
+        <h1>SiwBooks</h1>
+        <p>Esplora la nostra collezione di libri e autori in un ambiente elegante e intuitivo</p>
+    </div>
+
+    <div class="card-container">
+        <a th:href="@{/books}" class="card-link">
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                <h2 class="card-title">Catalogo Libri</h2>
+                <p class="card-description">Sfoglia la nostra collezione completa di libri</p>
+            </div>
+        </a>
+
+        <a th:href="@{/authors}" class="card-link">
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <h2 class="card-title">Autori</h2>
+                <p class="card-description">Scopri gli autori e le loro opere</p>
+            </div>
+        </a>
+
+        <a th:href="@{/login}" class="card-link">
+            <div class="card">
+                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <h2 class="card-title">Area Personale</h2>
+                <p class="card-description">Accedi per gestire recensioni e preferiti</p>
+            </div>
+        </a>
+    </div>
+</body>
+</html>
