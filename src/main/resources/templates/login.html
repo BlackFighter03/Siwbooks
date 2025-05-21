@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siwbooks - Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+	    <div class="navbar-content">
+			<div class="navbar-links-group">
+	            <h1 class="navbar-Title">SiwBooks</h1>
+			</div>
+			<div class="navbar-links-group">
+				<a th:href="@{/}" class="navbar-link">Home</a>
+				<a th:href="@{/books}" class="navbar-link">Libri</a>
+				<a th:href="@{/authors}" class="navbar-link">Autori</a>
+	            <a th:href="@{/login}" class="navbar-link active">Login</a>
+	        </div>
+	    </div>
+	</nav>
+</header>
+<main class="main-content">
+    <h1>Accedi</h1>
+	<span th:if="${msgError}" class="error-message" th:text="${msgError}"></span>
+    <form method="post" th:action="@{/login}" autocomplete="off" novalidate>
+        <div class="form-group">
+            <label for="username">Username</span></label>
+            <input type="text" id="username" name="username" placeholder="Inserisci username" required autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password</label>
+            <input type="password" id="pwd" name="pwd" placeholder="Inserisci password" required minlength="4">
+        </div>
+        <button type="submit">Accedi</button>
+		<div th:if="${admin != true}" class="register-link">
+	        <p>Sei un utente che non ha ancora un account? <a th:href="@{/register}" class="signup-link">Registrati</a></p>
+	    </div>
+    </form>
+</main>
+<footer class="footer">
+    <div class="footer-content">
+        <p>Siwbooks - La tua libreria digitale</p>
+    </div>
+</footer>
+</body>
+</html>

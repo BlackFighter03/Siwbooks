@@ -10,12 +10,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Review {
+public class Survey {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,14 +30,14 @@ public class Review {
 	private Integer mark;
 	
 	@Column(length = 1000)
-	private String desc;
+	private String description;
 	
 	@ManyToOne
 	private Book book;
 	
 	@NotNull
 	@ManyToOne
-	private RegisteredUser user;
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -62,12 +63,12 @@ public class Review {
 		this.mark = mark;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Book getBook() {
@@ -78,11 +79,11 @@ public class Review {
 		this.book = book;
 	}
 
-	public RegisteredUser getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(RegisteredUser user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -99,7 +100,7 @@ public class Review {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Review other = (Review) obj;
+		Survey other = (Survey) obj;
 		return Objects.equals(book, other.book) && Objects.equals(user, other.user);
 	}
 	

@@ -17,7 +17,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
-public class Autor {
+public class Author {
 
 	
 	@Id
@@ -39,9 +39,9 @@ public class Autor {
 	private Nationality nationality;
 	
 	@NotNull
-	private File photo;
+	private ImageEntity photo;
 	
-	@ManyToMany(mappedBy = "autors")
+	@ManyToMany(mappedBy = "authors")
 	private List<Book> books;
 
 	public Long getId() {
@@ -100,11 +100,11 @@ public class Autor {
 		this.books = books;
 	}
 
-	public File getPhoto() {
+	public ImageEntity getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(File photo) {
+	public void setPhoto(ImageEntity photo) {
 		this.photo = photo;
 	}
 
@@ -121,7 +121,7 @@ public class Autor {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Autor other = (Autor) obj;
+		Author other = (Author) obj;
 		return Objects.equals(dateBirth, other.dateBirth) && Objects.equals(dateDeath, other.dateDeath)
 				&& Objects.equals(name, other.name) && nationality == other.nationality
 				&& Objects.equals(surname, other.surname);

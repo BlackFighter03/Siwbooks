@@ -1,0 +1,1 @@
+INSERT INTO book (id, title, year_pubblication) VALUES (1, 'Il Signore degli Anelli', 1954);

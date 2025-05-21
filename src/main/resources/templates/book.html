@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dettagli Libro</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/book.css}">
+</head>
+<body>
+	<header class="header">
+	    <nav class="navbar">
+		    <div class="navbar-content">
+				<div class="navbar-links-group">
+		            <h1 class="navbar-Title">SiwBooks</h1>
+				</div>
+				<div class="navbar-links-group">
+					<a th:href="@{/}" class="navbar-link">Home</a>
+					<a th:href="@{/books}" class="navbar-link active">Libri</a>
+					<a th:href="@{/authors}" class="navbar-link">Autori</a>
+		            <a th:href="@{/login}" class="navbar-link">Login</a>
+		        </div>
+		    </div>
+		</nav>
+	</header>
+
+    <div class="details-container">
+        <div class="book-details">
+			<!--
+			<div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-slides" th:with="images=${book.images != null ? #lists.list(book.images) : null}"
+                         th:with="count=${images != null ? images.size() : 0}">
+                        <div th:each="img,iterStat : ${images}" th:id="'slide' + ${iterStat.index}" class="carousel-slide">
+                            <img th:src="@{'/books/' + ${book.id} + '/image/' + ${iterStat.index}}"
+                                 th:alt="'Immagine ' + ${iterStat.index + 1} + ' di ' + ${book.title}"
+                                 class="carousel-img"/>
+                        </div>
+                        <div th:if="${count == 0}" class="carousel-slide placeholder-img">
+                            Nessuna immagine disponibile
+                        </div>
+                    </div>
+                    <div class="carousel-nav" th:if="${count > 1}">
+                        <label th:each="img,iterStat : ${images}" 
+                               th:for="'slide' + ${iterStat.index}"
+                               class="carousel-dot"></label>
+                    </div>
+                </div>
+            </div>
+			 -->     
+            <div class="book-info">
+                <h1 class="book-title" th:text="${book.title}">Titolo del Libro</h1>
+                <div class="info-section">
+                    <h2>Autori</h2>
+                    <div class="authors-list">
+                        <a th:each="author : ${book.authors}"
+                           th:href="@{'/authors/' + ${author.id}}"
+                           class="author-link"
+                           th:text="${author.name + ' ' + author.surname}">
+                            Nome Autore
+                        </a>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h2>Anno di Pubblicazione</h2>
+                    <p th:text="${book.yearPubblication}">2023</p>
+                </div>
+                <div class="info-section" th:if="${!#lists.isEmpty(book.surveys)}">
+                    <h2>Recensioni</h2>
+                    <div class="surveys-list">
+                        <div th:each="survey : ${book.surveys}" class="survey-item">
+                            <p class="survey-text" th:text="${survey.text}">Testo della recensione</p>
+                            <p class="survey-rating" th:text="${'Valutazione: ' + survey.rating + '/5'}">Valutazione: 5/5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<footer class="footer">
+	    <div class="footer-content">
+	        <p>Siwbooks - La tua libreria digitale</p>
+	    </div>
+	</footer>
+</body>
+</html>

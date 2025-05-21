@@ -2,13 +2,20 @@ package it.uniroma3.siwbooks.model;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+import java.util.Objects;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
-@MappedSuperclass
-public abstract class User {
+@Entity
+@Table(name = "users")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +28,31 @@ public abstract class User {
 	private String surname;
 	
 	@NotBlank
-	private String password;
+	private String email;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Survey> surveys;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Survey> getSurveys() {
+		return surveys;
+	}
+
+	public void setReviews(List<Survey> surveys) {
+		this.surveys = surveys;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email);
+	}
 
 	public Long getId() {
 		return id;
@@ -47,14 +78,20 @@ public abstract class User {
 		this.surname = surname;
 	}
 
-	public String getPassword() {
-		return password;
+	public void setSurveys(List<Survey> surveys) {
+		this.surveys = surveys;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email);
 	}
-	
-	
 	
 }

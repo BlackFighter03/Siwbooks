@@ -28,13 +28,13 @@ public class Book {
 	@NotNull
 	private Integer yearPubblication;
 
-	private Set<File> images;
+	private Set<ImageEntity> images;
 	
 	@ManyToMany
-	private Set<Autor> autors;
+	private Set<Author> authors;
 	
 	@OneToMany(mappedBy = "book")	
-	private List<Review> reviews;
+	private List<Survey> surveys;
 
 	public Long getId() {
 		return id;
@@ -60,33 +60,33 @@ public class Book {
 		this.yearPubblication = yearPubblication;
 	}
 
-	public Set<File> getImages() {
+	public Set<ImageEntity> getImages() {
 		return images;
 	}
 
-	public void setImages(Set<File> images) {
+	public void setImages(Set<ImageEntity> images) {
 		this.images = images;
 	}
 	
-	public Set<Autor> getAutors() {
-		return autors;
+	public Set<Author> getAuthors() {
+		return authors;
 	}
 
-	public void setAutors(Set<Autor> autors) {
-		this.autors = autors;
+	public void setAuthors(Set<Author> authors) {
+		this.authors = authors;
 	}
 
-	public List<Review> getReviews() {
-		return reviews;
+	public List<Survey> getSurveys() {
+		return surveys;
 	}
 
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
+	public void setReviews(List<Survey> surveys) {
+		this.surveys = surveys;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(autors, images, title, yearPubblication);
+		return Objects.hash(authors, images, title, yearPubblication);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		return Objects.equals(autors, other.autors) && Objects.equals(images, other.images)
+		return Objects.equals(authors, other.authors) && Objects.equals(images, other.images)
 				&& Objects.equals(title, other.title) && Objects.equals(yearPubblication, other.yearPubblication);
 	}
 		
