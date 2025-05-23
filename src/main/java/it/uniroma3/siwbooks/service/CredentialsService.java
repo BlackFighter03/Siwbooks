@@ -11,22 +11,17 @@ import it.uniroma3.siwbooks.model.User;
 import it.uniroma3.siwbooks.repository.CredentialsRepository;
 import jakarta.validation.Valid;
 
-
 @Service
 public class CredentialsService {
 
 	@Autowired
 	private CredentialsRepository credentialsRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	public Credentials getCredentialsByUsername(String username) {
-		try {
-			return this.credentialsRepository.findByUsername(username).get();
-		} catch (Exception e) {
-			return null;
-		}
+		return this.credentialsRepository.findByUsername(username).orElse(null);
 	}
 
 	public boolean existsByUsername(String username) {
@@ -37,14 +32,10 @@ public class CredentialsService {
 		credentials.setRole(DEFAULT_ROLE);
 		credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
 		this.credentialsRepository.save(credentials);
-		
+
 	}
-	
-	public Credentials getCredentialsByUtente(User user) {
-		try {
-			return this.credentialsRepository.findByUser(user).get();
-		} catch (Exception e) {
-			return null;
-		}
+
+	public Credentials getCredentialsByUser(User user) {
+		return this.credentialsRepository.findByUser(user).orElse(null);
 	}
 }

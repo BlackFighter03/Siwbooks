@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" th:href="@{images/logo.png}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
+    <title>Siwbooks - Profilo Utente</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+	<header class="header">
+		    <nav class="navbar">
+			    <div class="navbar-content">
+					<div class="navbar-links-group">
+			            <h1 class="navbar-Title">SiwBooks</h1>
+					</div>
+					<div class="navbar-links-group">
+						<a th:href="@{'/user/' + user.id}" class="navbar-link active">Profilo</a>
+						<a th:href="@{/user/books}" class="navbar-link">Libri</a>
+						<a th:href="@{/user/authors}" class="navbar-link">Autori</a>
+			            <a th:href="@{/logout}" class="navbar-link">Esci</a>
+			        </div>
+			    </div>
+			</nav>
+		</header>
+
+    <main class="main-content">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h1 th:text="'Benvenuto, ' + ${user.name}">Benvenuto</h1>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-card">
+                    <h3>Informazioni Utente</h3>
+                    <p><strong>Nome:</strong> <span th:text="${user.name}">Mario</span></p>
+                    <p><strong>Cognome:</strong> <span th:text="${user.surname}">Rossi</span></p>
+                    <p><strong>Email:</strong> <span th:text="${user.email}">mario.rossi@example.com</span></p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Azioni</h3>
+                    <a th:href="@{'/user/' + ${user.id} + '/modifyUser'}" class="cta-button edit-profile-button">Modifica Profilo</a>
+					<!-- Bottone/modal per password -->
+					<a th:href="@{'/user/' + ${user.id} + '?showPasswordModal=true'}" class="cta-button change-password-button">Cambia Password</a>
+                </div>
+            </div>
+        </div>
+		<div th:if="${showPasswordModal == true}"
+           th:classappend="${showPasswordModal} ? '' : 'modal-hidden'"
+           class="modal-overlay"
+         >
+           <form class="password-card" th:action="@{'/user/' + ${user.id} + '/changePassword'}" method="post">
+               <h2>Cambia Password</h2>
+               <label for="newPassword">Nuova password</label>
+               <input
+                   type="password"
+                   id="newPwd"
+                   name="newPwd"
+                   placeholder="Inserisci la nuova password"
+                   required
+                   minlength="8"
+               />
+               <label for="confirmPassword">Conferma nuova password</label>
+               <input
+                   type="password"
+                   id="confirmPwd"
+                   name="confirmPwd"
+                   placeholder="Conferma la nuova password"
+                   required
+                   minlength="8"
+               />
+               <div class="password-btns">
+                   <a th:href="@{'/user/' + ${user.id}}" class="password-btn cancel">Annulla</a>
+                   <button type="submit" class="password-btn submit">Conferma</button>
+               </div>
+           </form>
+    </main>
+
+	<footer class="footer">
+		    <div class="footer-content">
+		        <p>Siwbooks - La tua libreria digitale</p>
+		    </div>
+	</footer>
+</body>
+</html>

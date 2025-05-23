@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
@@ -39,6 +40,7 @@ public class Author {
 	private Nationality nationality;
 	
 	@NotNull
+	@OneToOne
 	private ImageEntity photo;
 	
 	@ManyToMany(mappedBy = "authors")

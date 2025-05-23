@@ -8,6 +8,7 @@ import java.util.Set;
 import jakarta.validation.constraints.NotBlank;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,6 +29,7 @@ public class Book {
 	@NotNull
 	private Integer yearPubblication;
 
+	@OneToMany(fetch = FetchType.LAZY)
 	private Set<ImageEntity> images;
 	
 	@ManyToMany

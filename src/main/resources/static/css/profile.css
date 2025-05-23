@@ -1,0 +1,335 @@
+
+:root {
+    --primary: #2C3639;
+    --secondary: #3F4E4F;
+    --accent: #A27B5C;
+    --bg: #DCD7C9;
+    --card-bg: #ffffff;
+    --text: #2C3639;
+    --gray-light: #e6e2d7;
+    --success: #2ea44f;
+    --error: #e53c3c;
+}
+
+html, body {
+    height: 100%;
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER E NAVBAR */
+.header {
+    background: var(--card-bg);
+    border-bottom: 1.45px solid var(--gray-light);
+    box-shadow: 0 1px 8px #0001;
+}
+.navbar {
+    top: 0; left: 0; right: 0;
+	font-family: 'Merriweather', serif;
+    z-index: 30;
+    background: var(--card-bg);
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    border: none;
+}
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+.navbar-Title {
+    font-size: 1.29rem;
+    color: var(--primary);
+    font-weight: bold;
+    margin: 0 1.2rem 0 0;
+    letter-spacing: 0.6px;
+}
+.navbar-links-group {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+}
+.navbar-link {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.08rem;
+    padding: 0.37em 1em;
+    border-radius: 6px;
+    transition: background 0.17s, color 0.17s;
+    letter-spacing: .2px;
+    display: inline-block;
+}
+.navbar-link:hover, .navbar-link.active {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3.8rem 0 2.4rem 0;
+}
+
+.profile-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 3px 18px rgba(44,54,57,0.13);
+    padding: 2.7rem 2.2rem 2rem 2.2rem;
+    max-width: 460px;
+    width: 100%;
+    margin: 0 auto 2.4rem auto;
+    border-left: 4px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    gap: 1.7rem;
+}
+.profile-header h1 {
+    font-size: 1.42rem;
+    margin: 0 0 0.8rem 0;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: .04em;
+}
+
+.profile-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: stretch;
+}
+
+.info-card {
+    background: var(--gray-light);
+    border-radius: 11px;
+    box-shadow: 0 1px 8px #0001;
+    padding: 1.3rem 1.2rem;
+    min-width: 190px;
+    flex: 1 0 180px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.69rem;
+}
+.info-card h3 {
+    margin: 0 0 .6rem 0;
+    color: var(--primary);
+    font-size: 1.07rem;
+    font-weight: 600;
+    letter-spacing: .25px;
+}
+
+.info-card p {
+    margin: 0.07em 0 0;
+    font-size: 1.02rem;
+    color: var(--secondary);
+}
+
+.info-card strong {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+/* CALL TO ACTION BUTTONS */
+.cta-button {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 5px;
+    font-size: 1.02rem;
+    padding: 0.53em 1.15em;
+    margin-bottom: 0.6em;
+    margin-right: 0.25em;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    border: none;
+    box-shadow: 0 2px 12px #a27b5c22;
+    transition: background 0.19s, color 0.19s;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+.cta-button:hover {
+    background: var(--secondary);
+    color: #fff;
+}
+.edit-profile-button {
+    margin-bottom: 0.5em;
+}
+.change-password-button {
+    background: var(--secondary);
+    margin-left: 3px;
+}
+.change-password-button:hover {
+    background: var(--accent);
+}
+
+/* MODAL CAMBIO PASSWORD */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 100;
+    background: rgba(44, 54, 57, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: modal-fade-in 0.22s;
+}
+
+@keyframes modal-fade-in {
+    from { opacity: 0;}
+    to { opacity: 1;}
+}
+
+.modal-hidden {
+    display: none !important;
+}
+.password-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    min-width: 285px;
+    max-width: 350px;
+    padding: 2rem 1.7rem 1.37rem 1.7rem;
+    box-shadow: 0 8px 28px 0 #2c363933;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    z-index: 105;
+}
+
+.password-card h2 {
+    color: var(--primary);
+
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 1.2rem 0;
+    letter-spacing: .03em;
+}
+
+.password-card label {
+    color: var(--secondary);
+
+    font-weight: 600;
+    font-size: 1.01rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: .18px;
+}
+
+.password-card input[type="password"] {
+    padding: 0.65em;
+    background: var(--gray-light);
+    color: var(--primary);
+    border: 1px solid var(--gray-light);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    transition: border 0.18s, box-shadow .22s;
+    outline: none;
+    margin-bottom: 1.2em;
+}
+
+.password-card input[type="password"]:focus {
+    border: 1.5px solid var(--accent);
+    box-shadow: 0 0 0 2px #a27b5c22;
+    background: #f7f5f1;
+}
+
+.password-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6em;
+}
+
+.password-btn {
+    padding: 0.46em 1.15em;
+    font-size: 1rem;
+    border-radius: 5px;
+
+    font-weight: 600;
+    border: none;
+    outline: none;
+    transition: background 0.16s;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 0 1px 9px #a27b5c22;
+    letter-spacing: .2px;
+    margin-top: 0.15em;
+    margin-bottom: 0.1em;
+}
+
+.password-btn.cancel {
+    background: #d1c8dc;
+    color: var(--primary);
+}
+.password-btn.cancel:hover {
+    background: #ede8f6;
+}
+
+.password-btn.submit {
+    background: var(--accent);
+}
+.password-btn.submit:hover {
+    background: var(--secondary);
+    color: #fff;
+}
+
+/* FOOTER */
+.footer {
+    flex-shrink: 0;
+    width: 100%;
+    background: var(--card-bg);
+    border-top: 1px solid var(--gray-light);
+    box-shadow: 0 -1px 8px #0001;
+    margin-top: auto;
+}
+.footer-content {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    text-align: center;
+    color: var(--secondary);
+    font-size: 1.02rem;
+    font-family: 'Open Sans', sans-serif;
+    opacity: 0.87;
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+    .navbar-content { padding: 0 0.8rem;}
+    .main-content { padding-top: 2.0rem;}
+    .profile-card { padding: 1.7rem 0.7rem 1.4rem 0.7rem; max-width: 99vw; }
+    .profile-header h1 { font-size: 1.08rem;}
+    .info-card h3 { font-size: .99rem;}
+    .password-card { min-width: 220px; padding: 1rem 0.3rem;}
+}
+@media (max-width: 480px) {
+    .main-content { padding: 0.7rem 0 0.7rem 0;}
+    .profile-card { padding: 1.1rem 0.2rem 1.1rem 0.2rem;}
+    .info-card { padding: 0.8rem 0.3rem;}
+    .navbar-Title { font-size: 1rem;}
+    .navbar-link { font-size: .95rem; padding: 0.19em 0.7em;}
+    .footer-content { padding: 1rem 0.3rem;}
+}
+

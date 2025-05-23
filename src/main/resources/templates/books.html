@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
     <title>Catalogo Libri</title>
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/books.css}">
 </head>
 <body>
@@ -18,7 +18,7 @@
 					<a th:href="@{/}" class="navbar-link">Home</a>
 					<a th:href="@{/books}" class="navbar-link active">Libri</a>
 					<a th:href="@{/authors}" class="navbar-link">Autori</a>
-		            <a th:href="@{/login}" class="navbar-link">Login</a>
+		            <a th:href="@{/login}" class="navbar-link">Accedi</a>
 		        </div>
 		    </div>
 		</nav>
@@ -35,7 +35,7 @@
 		                <img th:if="${book.images != null and !book.images.empty}"
 		                     th:src="@{'/books/' + ${book.id} + '/image/0'}"
 		                     th:alt="'Copertina di ' + ${book.title}" />
-		                <img th:if="${book.images == null or #book.images.empty}"
+		                <img th:if="${book.images == null or book.images.empty}"
 		                     src="https://placehold.co/126x178?text=Nessuna+immagine"
 		                     alt="Nessuna immagine disponibile" />
 		            </div>
