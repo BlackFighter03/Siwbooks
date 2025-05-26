@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catalogo Autori</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/authors.css}">
+</head>
+<body>
+	<nav class="navbar">
+		    <div class="navbar-content">
+				<div class="navbar-links-group">
+		            <h1 class="navbar-Title">SiwBooks</h1>
+				</div>
+				<div class="navbar-links-group">
+					<a th:href="@{'/user/' + ${user.id}}" class="navbar-link">Profilo</a>
+					<a th:href="@{/user/books}" class="navbar-link">Libri</a>
+					<a th:href="@{/user/authors}" class="navbar-link active">Autori</a>
+		            <a th:href="@{/logout}" class="navbar-link">Esci</a>
+		        </div>
+		    </div>
+		</nav>
+
+    <div class="catalog-container">
+        <div class="page-title">Catalogo Autori</div>
+        <div th:if="${#lists.isEmpty(authors)}" class="no-authors">
+            Nessun autore disponibile.
+        </div>
+        <div th:if="${!#lists.isEmpty(authors)}" class="authors-grid">
+            <div class="author-card" th:each="author : ${authors}">
+                <div class="author-photo-wrapper">
+                    <img th:if="${author.photo != null}"
+                         th:src="@{'/authors/' + ${author.id} + '/photo'}"
+                         th:alt="'Foto di ' + ${author.name} + ' ' + ${author.surname}" />
+                    <img th:if="${author.photo == null}"
+                         src="https://placehold.co/200x200?text=Nessuna+foto"
+                         alt="Nessuna foto disponibile" />
+                </div>
+                <div class="author-name" th:text="${author.name + ' ' + author.surname}">Nome Cognome</div>
+                <a class="view-details-link" th:href="@{'/user/authors/' + ${author.id}}" title="Dettagli autore">
+                    Dettagli
+                </a>
+            </div>
+        </div>
+    </div>
+	<footer class="footer">
+	    <div class="footer-content">
+	        <p>Siwbooks - La tua libreria digitale</p>
+	    </div>
+	</footer>
+</body>
+</html>

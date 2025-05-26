@@ -33,7 +33,7 @@
 		        <div class="book-card" th:each="book : ${books}">
 		            <div class="book-cover-wrapper">
 		                <img th:if="${book.images != null and !book.images.empty}"
-		                     th:src="@{'/books/' + ${book.id} + '/image/0'}"
+		                     th:src="@{${book.images[0].name}}"
 		                     th:alt="'Copertina di ' + ${book.title}" />
 		                <img th:if="${book.images == null or book.images.empty}"
 		                     src="https://placehold.co/126x178?text=Nessuna+immagine"

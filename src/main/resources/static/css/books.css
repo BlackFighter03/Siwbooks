@@ -113,7 +113,8 @@ body {
     font-weight: 700;
 }
 .books-grid {
-    display: grid;
+	flex-direction: row;
+    display: flex;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2.2rem 2rem;
 }

@@ -1,23 +1,24 @@
 package it.uniroma3.siwbooks.model;
 
-import java.sql.Blob;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class ImageEntity {
 
+	public final static String PATH = "/images/";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Lob
-	private Blob imageData;
+	@NotNull
+	private String name;
 
 	public Long getId() {
 		return id;
@@ -27,17 +28,17 @@ public class ImageEntity {
 		this.id = id;
 	}
 
-	public Blob getImageData() {
-		return imageData;
+	public String getName() {
+		return name;
 	}
 
-	public void setImageData(Blob imageData) {
-		this.imageData = imageData;
+	public void setName(String name) {
+		this.name = PATH + name;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(imageData);
+		return Objects.hash(name);
 	}
 
 	@Override
@@ -49,9 +50,9 @@ public class ImageEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		ImageEntity other = (ImageEntity) obj;
-		return Objects.equals(imageData, other.imageData);
+		return Objects.equals(name, other.name);
 	}
-
+	
 	
 	
 }

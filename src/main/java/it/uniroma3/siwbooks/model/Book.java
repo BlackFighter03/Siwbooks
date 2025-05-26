@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -29,13 +30,16 @@ public class Book {
 	@NotNull
 	private Integer yearPubblication;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToOne
+	private ImageEntity cover;
+	
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<ImageEntity> images;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Author> authors;
 	
-	@OneToMany(mappedBy = "book")	
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)	
 	private List<Survey> surveys;
 
 	public Long getId() {
@@ -82,13 +86,21 @@ public class Book {
 		return surveys;
 	}
 
-	public void setReviews(List<Survey> surveys) {
+	public ImageEntity getCover() {
+		return cover;
+	}
+
+	public void setCover(ImageEntity cover) {
+		this.cover = cover;
+	}
+
+	public void setSurveys(List<Survey> surveys) {
 		this.surveys = surveys;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(authors, images, title, yearPubblication);
+		return Objects.hash(authors, title, yearPubblication);
 	}
 
 	@Override
@@ -100,8 +112,13 @@ public class Book {
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		return Objects.equals(authors, other.authors) && Objects.equals(images, other.images)
-				&& Objects.equals(title, other.title) && Objects.equals(yearPubblication, other.yearPubblication);
+		return Objects.equals(authors, other.authors) && Objects.equals(title, other.title)
+				&& Objects.equals(yearPubblication, other.yearPubblication);
 	}
-		
+
+	public void addSurvey(Survey survey) {
+		this.surveys.add(survey);
+	}
+	
+	
 }

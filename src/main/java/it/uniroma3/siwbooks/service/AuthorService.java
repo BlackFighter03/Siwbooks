@@ -16,4 +16,8 @@ public class AuthorService {
 	public List<Author> getAuthors() {
 		return (List<Author>) authorRepository.findAll();
 	}
+
+	public Author getAuthor(Long id) {
+		return this.authorRepository.findById(id).orElse(null);
+	}
 }

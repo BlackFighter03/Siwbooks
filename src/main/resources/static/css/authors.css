@@ -1,4 +1,3 @@
-
 :root {
     --primary: #2C3639;
     --secondary: #3F4E4F;
@@ -107,6 +106,7 @@ body {
 
 .authors-grid {
     display: grid;
+	flex-direction: row;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2.2rem 2rem;
 }

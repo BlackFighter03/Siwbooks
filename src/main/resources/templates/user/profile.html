@@ -16,7 +16,7 @@
 			            <h1 class="navbar-Title">SiwBooks</h1>
 					</div>
 					<div class="navbar-links-group">
-						<a th:href="@{'/user/' + user.id}" class="navbar-link active">Profilo</a>
+						<a th:href="@{'/user/' + ${user.id}}" class="navbar-link active">Profilo</a>
 						<a th:href="@{/user/books}" class="navbar-link">Libri</a>
 						<a th:href="@{/user/authors}" class="navbar-link">Autori</a>
 			            <a th:href="@{/logout}" class="navbar-link">Esci</a>

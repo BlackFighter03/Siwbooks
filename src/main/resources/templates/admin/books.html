@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
+    <title>Catalogo Libri</title>
+    <link rel="stylesheet" th:href="@{/css/books.css}">
+</head>
+<body>
+	<header class="header">
+	    <nav class="navbar">
+		    <div class="navbar-content">
+				<div class="navbar-links-group">
+		            <h1 class="navbar-Title">SiwBooks</h1>
+				</div>
+				<div class="navbar-links-group">
+					<a th:href="@{'/admin/' + ${user.id}}" class="navbar-link">Profilo</a>
+					<a th:href="@{/admin/books}" class="navbar-link active">Libri</a>
+					<a th:href="@{/admin/authors}" class="navbar-link">Autori</a>
+		            <a th:href="@{/logout}" class="navbar-link">Esci</a>
+		        </div>
+		    </div>
+		</nav>
+	</header>
+	<main class="main-content">
+		<div class="catalog-container">
+			    <div class="page-title">Catalogo Libri</div>
+			    <div th:if="${books.empty}" class="no-books">
+			        Nessun libro disponibile.
+			    </div>
+			    <div th:if="${!books.empty}" class="books-grid">
+			        <div class="book-card" th:each="book : ${books}">
+			            <div class="book-cover-wrapper">
+			                <img th:if="${book.images != null and !book.images.empty}"
+			                     th:src="@{${book.images[0].name}}"
+			                     th:alt="'Copertina di ' + ${book.title}" />
+			                <img th:if="${book.images == null or book.images.empty}"
+			                     src="https://placehold.co/126x178?text=Nessuna+immagine"
+			                     alt="Nessuna immagine disponibile" />
+			            </div>
+		            <div class="book-title" th:text="${book.title}">Titolo Libro</div>
+		            <a class="view-details-link" th:href="@{'/admin/books/' + ${book.id}}" title="Dettagli libro">
+		                Dettagli
+		            </a>
+		        </div>
+		    </div>
+		</div>
+	</main>
+	<footer class="footer">
+	    <div class="footer-content">
+	        <p>Siwbooks - La tua libreria digitale</p>
+	    </div>
+	</footer>
+</body>
+</html>

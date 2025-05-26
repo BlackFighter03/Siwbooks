@@ -1,14 +1,17 @@
 package it.uniroma3.siwbooks.model;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.NotBlank;
 
 import it.uniroma3.siwbooks.constant.Nationality;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,14 +35,17 @@ public class Author {
 	private String surname;
 	
 	@NotNull
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dateBirth;
 	
 	@PastOrPresent
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dateDeath;
-	@NotNull
+
+	@Enumerated(EnumType.STRING)
 	private Nationality nationality;
 	
-	@NotNull
+
 	@OneToOne
 	private ImageEntity photo;
 	

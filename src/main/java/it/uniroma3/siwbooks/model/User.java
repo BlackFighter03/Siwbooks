@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class User {
 	@NotBlank
 	private String email;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Survey> surveys;
 	
 	public String getEmail() {
@@ -39,14 +40,6 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public List<Survey> getSurveys() {
-		return surveys;
-	}
-
-	public void setReviews(List<Survey> surveys) {
-		this.surveys = surveys;
 	}
 
 	@Override
@@ -76,6 +69,10 @@ public class User {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public List<Survey> getSurveys() {
+		return surveys;
 	}
 
 	public void setSurveys(List<Survey> surveys) {

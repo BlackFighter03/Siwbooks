@@ -19,8 +19,7 @@ public class UserService {
 	private CredentialsService credentialsService;
 
 	public User getCurrentUser() {
-		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return credentialsService.getCredentialsByUsername(userDetails.getUsername()).getUser();
+		return credentialsService.getCurrentUser();
 	}
 
 	public User findById(Long id) {

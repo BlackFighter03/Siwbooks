@@ -1,6 +1,5 @@
 package it.uniroma3.siwbooks.model;
 
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
@@ -10,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -22,22 +20,37 @@ public class Survey {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	private String title;
 
 	@Min(1)
 	@Max(5)
 	private Integer mark;
 	
+	@NotNull
 	@Column(length = 1000)
-	private String description;
+	private String text;
 	
+	@NotNull
 	@ManyToOne
 	private Book book;
 	
 	@NotNull
 	@ManyToOne
 	private User user;
+	
+
+	public Survey() {
+		this(null, null, null, null, null);
+	}
+
+	public Survey(String title, @Min(1) @Max(5) Integer mark, String text, Book book, User user) {
+		this.title = title;
+		this.mark = mark;
+		this.text = text;
+		this.book = book;
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;
@@ -63,12 +76,12 @@ public class Survey {
 		this.mark = mark;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getText() {
+		return text;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public Book getBook() {
