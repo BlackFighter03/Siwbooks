@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Catalogo Autori</title>
+    <title>Siwbooks - Catalogo Autori</title>
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/authors.css}">
 </head>
@@ -31,7 +31,7 @@
             <div class="author-card" th:each="author : ${authors}">
                 <div class="author-photo-wrapper">
                     <img th:if="${author.photo != null}"
-                         th:src="@{'/authors/' + ${author.id} + '/photo'}"
+                         th:src="@{${author.photo.name}}"
                          th:alt="'Foto di ' + ${author.name} + ' ' + ${author.surname}" />
                     <img th:if="${author.photo == null}"
                          src="https://placehold.co/200x200?text=Nessuna+foto"

@@ -1,6 +1,7 @@
 package it.uniroma3.siwbooks.model;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,13 +23,13 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@NotBlank
+	@NotEmpty
 	private String name;
 	
-	@NotBlank
+	@NotEmpty
 	private String surname;
 	
-	@NotBlank
+	@NotEmpty
 	private String email;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -88,7 +89,7 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(email, other.email);
+		return this.email.equals(other.getEmail());
 	}
 	
 }

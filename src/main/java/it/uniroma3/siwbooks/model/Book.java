@@ -1,11 +1,11 @@
 package it.uniroma3.siwbooks.model;
 
-import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -24,22 +23,20 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@NotBlank
+	@NotEmpty
 	private String title;
 	
 	@NotNull
 	private Integer yearPubblication;
-
-	@OneToOne
-	private ImageEntity cover;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<ImageEntity> images;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
+	@NotEmpty
 	private Set<Author> authors;
 	
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)	
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)	
 	private List<Survey> surveys;
 
 	public Long getId() {
@@ -84,14 +81,6 @@ public class Book {
 
 	public List<Survey> getSurveys() {
 		return surveys;
-	}
-
-	public ImageEntity getCover() {
-		return cover;
-	}
-
-	public void setCover(ImageEntity cover) {
-		this.cover = cover;
 	}
 
 	public void setSurveys(List<Survey> surveys) {

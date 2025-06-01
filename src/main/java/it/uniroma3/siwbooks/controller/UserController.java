@@ -56,8 +56,10 @@ public class UserController {
 	
 	@PostMapping("/{id}/modifyUser")
 	public String updateInfo(@PathVariable("id") Long id, @ModelAttribute @Valid User user, BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors())
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("user", userService.getCurrentUser());
 			return "user/formModifyUser.html";
+		}
 		if (!verifyId(id, userService.getCurrentUser().getId()))
 			return "redirect:/login";
 		this.userService.saveUser(user);
@@ -68,6 +70,7 @@ public class UserController {
 	public String updateCredentials(@PathVariable("id") Long id, @RequestParam @Valid String confirmPwd, @RequestParam @Valid String newPwd, Model model) {
 		if(newPwd == null || confirmPwd == null || newPwd.equals("") || confirmPwd.equals("") || !newPwd.equals(confirmPwd)) {
 			model.addAttribute("msgError", "Il campo della nuova password è vuota");
+			model.addAttribute("user", userService.getCurrentUser());
 			return "user/profile.html";
 		}
 		User user = userService.getCurrentUser();

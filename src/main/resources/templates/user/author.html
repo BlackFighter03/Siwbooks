@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="'Autore: ' + ${author.name} + ' ' + ${author.surname}">Dettaglio Autore</title>
+    <title>Siwbooks - Dettaglio Autore</title>
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
     <!-- Riusa lo stile globale degli autori -->
     <link rel="stylesheet" th:href="@{/css/author.css}">
@@ -31,7 +31,7 @@
             <div class="author-details-header">
                 <div class="author-photo-wrapper">
                     <img th:if="${author.photo != null}"
-                         th:src="@{'/authors/' + ${author.id} + '/photo'}"
+                         th:src="@{${author.photo.name}}"
                          th:alt="'Foto di ' + ${author.name} + ' ' + ${author.surname}" />
                     <img th:if="${author.photo == null}"
                          src="https://placehold.co/200x200?text=Nessuna+foto"
@@ -44,7 +44,7 @@
                         <p>
 							<strong>Nato il:</strong> <span th:text="${#temporals.format(author.dateBirth, 'dd/MM/yyyy')}">01-01-1900</span>
 							<span th:if="${author.dateDeath != null}">
-							    <br><strong>Morto il:</strong> <span th:text="${#dates.format(author.dateDeath, 'dd/MM/yyyy')}">15-05-1983</span>
+							    <br><strong>Morto il:</strong> <span th:text="${#temporals.format(author.dateDeath, 'dd/MM/yyyy')}">15-05-1983</span>
 							</span>
                         </p>
                     </div>
@@ -75,9 +75,6 @@
                     </a>
                 </div>
             </div>
-        </div>
-        <div>
-            <a th:href="@{/authors}" class="view-details-link" style="margin-top:2rem;">Torna al catalogo autori</a>
         </div>
     </div>
     <footer class="footer">

@@ -42,7 +42,7 @@ public class AuthConfiguration {
 				// Consentiti a tutti (occasionali)
 				.requestMatchers(HttpMethod.GET, "/", "/index", "/books/**", "/authors/**",
 						"/login", "/register", "/css/**", "/images/**", "favicon.ico")
-				.permitAll().requestMatchers(HttpMethod.POST, "/register", "/login")
+				.permitAll().requestMatchers(HttpMethod.POST, "/register", "/login",  "/images/**")
 				.permitAll()
 
 				// Solo ADMIN_ROLE
@@ -72,10 +72,10 @@ public class AuthConfiguration {
 					boolean isAdmin = this.credentialsService.getCredentialsByUsername(username).getRole().equals(ADMIN_ROLE);
 					if (isAdmin) {
 						// Se ADMIN, redirect operatore (sostituisci idUtente)
-						response.sendRedirect(idUtente != null ? "/admin/" + idUtente : "/login");
+						response.sendRedirect(idUtente != null ? "/admin/books": "/login");
 					} else {
 						// Se Utente, redirect utente (sostituisci idUtente)
-						response.sendRedirect(idUtente != null ? "/user/" + idUtente : "/login");
+						response.sendRedirect(idUtente != null ? "/user/books" : "/login");
 					}
 				}).failureUrl("/login?error=true").permitAll().and().logout().logoutUrl("/logout")
 				.logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID")

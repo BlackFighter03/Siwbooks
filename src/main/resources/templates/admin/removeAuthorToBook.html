@@ -14,18 +14,23 @@
 		            <h1 class="navbar-Title">SiwBooks</h1>
 				</div>
 				<div class="navbar-links-group">
-					<a th:href="@{'/user/' + ${user.id}}" class="navbar-link">Profilo</a>
-					<a th:href="@{/user/books}" class="navbar-link">Libri</a>
-					<a th:href="@{/user/authors}" class="navbar-link active">Autori</a>
+					<a th:href="@{'/admin/' + ${user.id}}" class="navbar-link">Profilo</a>
+					<a th:href="@{/admin/books}" class="navbar-link active">Libri</a>
+					<a th:href="@{/admin/authors}" class="navbar-link">Autori</a>
 		            <a th:href="@{/logout}" class="navbar-link">Esci</a>
 		        </div>
 		    </div>
 		</nav>
 
     <div class="catalog-container">
-        <div class="page-title">Catalogo Autori</div>
+        <div class="page-title">Rimuovi un autore
+			<br/>
+			<a th:href="@{'/admin/books/'+${book.id}}" class="add-author-btn">
+	            Torna al libro
+	        </a>
+		</div>
         <div th:if="${#lists.isEmpty(authors)}" class="no-authors">
-            Nessun autore disponibile.
+            Nessun autore da rimuovere.
         </div>
         <div th:if="${!#lists.isEmpty(authors)}" class="authors-grid">
             <div class="author-card" th:each="author : ${authors}">
@@ -38,9 +43,11 @@
                          alt="Nessuna foto disponibile" />
                 </div>
                 <div class="author-name" th:text="${author.name + ' ' + author.surname}">Nome Cognome</div>
-                <a class="view-details-link" th:href="@{'/user/authors/' + ${author.id}}" title="Dettagli autore">
-                    Dettagli
-                </a>
+				<div class = "view-links">
+	                <a class="view-admin-link" th:href="@{'/admin/books/'+${book.id}+'/authors/' + ${author.id} + '/delete'}" title="Dettagli autore">
+	                    Rimuovi
+	                </a>
+				</div>
             </div>
         </div>
     </div>

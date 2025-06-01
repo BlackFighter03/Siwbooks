@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import it.uniroma3.siwbooks.model.Credentials;
 import it.uniroma3.siwbooks.model.User;
 import it.uniroma3.siwbooks.service.CredentialsService;
-import it.uniroma3.siwbooks.service.UserService;
 import jakarta.validation.Valid;
 
 
 @Controller
 public class MainController {
 
-	@Autowired
-	private UserService userService;
 	@Autowired
 	private CredentialsService credentialsService;
 	
@@ -31,7 +28,11 @@ public class MainController {
 	}
 	
 	@GetMapping("/login")
-	public String showLogin() {
+	public String showLogin(@RequestParam(value = "error", required = false) boolean error, Model model) {
+
+	    if (error)
+	        model.addAttribute("msgError", "Username o password errati");
+	    
 		return "login.html";
 	}
 	
@@ -42,43 +43,61 @@ public class MainController {
 		return "register.html";
 	}
 	
-	 @PostMapping("/register")
-	    public String registerUser(@Valid @ModelAttribute("user") User user,
-	                             BindingResult utenteBindingResult,
-	                             @Valid @ModelAttribute("credentials") Credentials credentials,
-	                             @Valid @RequestParam(name = "confirmPwd") String confermaPwd,
-	                             BindingResult credentialsBindingResult,
-	                             Model model) {
-	        
-	        // Validation check for both objects
-	        if (utenteBindingResult.hasErrors() || credentialsBindingResult.hasErrors()) {
-	            model.addAttribute("msgError", "Errore nella validazione dei dati");
-	            return "register.html";
-	        }
-	        // Check if username already exists
-	        if (credentialsService.existsByUsername(credentials.getUsername())) {
-	            model.addAttribute("msgError", "Username già in uso");
-	            return "register.html";
-	        }
-	        if(!credentials.getPassword().equals(confermaPwd)) {
-	        	model.addAttribute("msgError", "Le 2 password scritte non sono uguali");
-	            return "register.html";
-	        }
-	        try {
-	            
-	            // Link utente to credentials
-	            credentials.setUser(user);
-	            
-	            // Save credentials
-	            credentialsService.saveCredentials(credentials);
-	            
-	            model.addAttribute("msgSuccess", "Registrazione completata con successo");
-	            return "redirect:/login";
-	            
-	        } catch (Exception e) {
-	            model.addAttribute("msgError", "Errore durante la registrazione");
-	            return "register.html";
-	        }
-	    }
+	@PostMapping("/register")
+    public String registerUser(@Valid @ModelAttribute("user") User user,
+                             BindingResult userBindingResult,
+                             @Valid @ModelAttribute("credentials") Credentials credentials,
+                             @Valid @RequestParam(name = "confirmPwd") String confirmPwd,
+                             BindingResult credentialsBindingResult,
+                             Model model) {
+        
+        // Validation check for both objects
+        if (userBindingResult.hasErrors() || credentialsBindingResult.hasErrors()) {
+            model.addAttribute("msgError", "Errore nella validazione dei dati");
+            model.addAttribute("user", user);
+            model.addAttribute("credentials", credentials);
+            return "register.html";
+        }
+        // Check if username already exists
+        if (credentialsService.existsByUsername(credentials.getUsername())) {
+            model.addAttribute("msgError", "Username già in uso");
+            model.addAttribute("user", user);
+            model.addAttribute("credentials", credentials);
+            return "register.html";
+        }
+        if(!credentials.getPassword().equals(confirmPwd)) {
+        	model.addAttribute("msgError", "Le 2 password scritte non sono uguali");
+        	model.addAttribute("user", user);
+            model.addAttribute("credentials", credentials);
+            return "register.html";
+        }
+        if(credentials.getPassword().length() < 8) {
+        	model.addAttribute("msgError", "La password scritta deve avere almeno 8 caratteri");
+        	model.addAttribute("user", user);
+            model.addAttribute("credentials", credentials);
+            return "register.html";
+        }
+        if(credentials.getUsername().length() < 8) {
+        	model.addAttribute("msgError", "L'username scelto deve avere almeno 8 caratteri");
+        	model.addAttribute("user", user);
+            model.addAttribute("credentials", credentials);
+            return "register.html";
+        }
+        try {
+            
+            // Link user to credentials
+            credentials.setUser(user);
+            
+            // Save credentials (which will cascade to user due to @OneToOne relationship)
+            credentialsService.saveCredentials(credentials);
+            
+            model.addAttribute("msgSuccess", "Registrazione completata con successo");
+            return "redirect:/user/"+ user.getId();
+            
+        } catch (Exception e) {
+            model.addAttribute("msgError", "Errore durante la registrazione");
+            return "register.html";
+        }
+    }
 	
 }

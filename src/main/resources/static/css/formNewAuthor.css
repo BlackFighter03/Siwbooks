@@ -1,0 +1,241 @@
+/* Variabili root */
+:root {
+    --primary: #2C3639;
+    --secondary: #3F4E4F;
+    --accent: #A27B5C;
+    --bg: #DCD7C9;
+    --card-bg: #ffffff;
+    --text: #2C3639;
+    --gray-light: #e6e2d7;
+}
+
+/* Stili base */
+html, body {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    top: 0; left: 0; right: 0;
+    font-family: 'Merriweather', serif;
+    z-index: 30;
+    background: var(--card-bg);
+    border-bottom: 1.45px solid var(--gray-light);
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 8px #0001;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.navbar-link {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.08rem;
+    padding: 0.35em 1em;
+    border-radius: 6px;
+    transition: background 0.17s, color 0.17s;
+    letter-spacing: .2px;
+    display: inline-block;
+    position: relative;
+}
+
+.navbar-link:hover, .navbar-link.active {
+    background: var(--accent);
+    color: #fff;
+}
+
+.navbar-links-group {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+/* Form Container Styles */
+.form-author-container {
+	width: 70%;
+    background: var(--card-bg);
+    margin: 3.2rem auto 2.2rem auto;
+    padding: 2.2rem 1.8rem 1.7rem 1.8rem;
+    border-radius: 14px;
+    box-shadow: 0 3px 18px rgba(44,54,57,0.11);
+}
+
+/* Form Title Styles */
+.form-title {
+    text-align: center;
+    font-family: 'Open Sans', serif;
+    font-size: 1.65rem;
+    color: var(--primary);
+    margin-bottom: 2.1rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+/* Form Elements Styles */
+.author-form label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.07rem;
+    color: var(--secondary);
+    font-weight: 600;
+    margin-bottom: 0.30rem;
+    display: block;
+}
+
+.author-form input[type="text"],
+.author-form input[type="date"],
+.author-form select {
+    width: 100%;
+    padding: 0.55em 0.9em;
+    border-radius: 6px;
+    border: 1.15px solid var(--gray-light);
+    margin-bottom: 0.92rem;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg);
+    color: var(--primary);
+    transition: border 0.14s;
+}
+
+.author-form input[type="file"] {
+    margin-bottom: 1.2rem;
+}
+
+.author-form input:focus,
+.author-form select:focus {
+    border: 1.27px solid var(--accent);
+    outline: none;
+}
+
+.author-form .form-group {
+    margin-right: 1.12rem;
+	margin-top: 1.12rem;
+}
+
+/* Submit Button Styles */
+.btn-submit-author {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.7em 1.8em;
+    font-size: 1.08rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 1px 6px #a27b5c20;
+    transition: background 0.16s;
+    cursor: pointer;
+    margin-top: 0.65rem;
+    width: 100%;
+}
+
+.btn-submit-author:hover,
+.btn-submit-author:focus {
+    background: var(--secondary);
+    color: #fff;
+}
+
+/* Error Message Styles */
+.form-error {
+    color: #c0392b;
+    font-size: 0.99rem;
+    padding-top: 0.22em;
+    font-weight: 500;
+    min-height: 1.1em;
+}
+
+/* Footer Styles */
+.footer {
+    flex-shrink: 0;
+    width: 100%;
+    background: var(--card-bg);
+    border-top: 1px solid var(--gray-light);
+    box-shadow: 0 -1px 8px #0001;
+    margin-top: auto;
+    padding: 0;
+}
+
+.footer-content {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    text-align: center;
+    color: var(--secondary);
+    font-size: 1.02rem;
+    font-family: 'Open Sans', sans-serif;
+    opacity: 0.87;
+}
+
+/* Back Link Styles */
+.back-link {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.03rem;
+    display: block;
+    text-align: center;
+    margin-top: 2.2rem;
+}
+
+.back-link:hover {
+    color: var(--secondary);
+}
+
+/* Responsive Styles */
+@media (max-width: 700px) {
+    .navbar-content {
+        padding: 0 0.5rem;
+    }
+    
+    .navbar-link {
+        font-size: 0.99rem;
+        padding: 0.28em 0.73em;
+    }
+    
+    .form-author-container {
+        margin: 1.5rem 1rem;
+        padding: 1.2rem 0.7rem 1.4rem 0.7rem;
+    }
+    
+    .form-title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding-top: 3.6rem;
+    }
+    
+    .navbar-Title {
+        font-size: 1.2rem;
+    }
+    
+    .author-form input[type="text"],
+    .author-form input[type="date"],
+    .author-form select {
+        font-size: 0.95rem;
+    }
+}

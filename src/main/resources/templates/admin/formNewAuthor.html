@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuovo Autore</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/formNewAuthor.css}">
+</head>
+<body>
+<nav class="navbar">
+    <div class="navbar-content">
+        <div class="navbar-links-group">
+            <h1 class="navbar-Title">SiwBooks</h1>
+        </div>
+        <div class="navbar-links-group">
+            <a th:href="@{'/admin/' + ${user.id}}" class="navbar-link">Profilo</a>
+            <a th:href="@{/admin/books}" class="navbar-link">Libri</a>
+            <a th:href="@{/admin/authors}" class="navbar-link active">Autori</a>
+            <a th:href="@{/logout}" class="navbar-link">Esci</a>
+        </div>
+    </div>
+</nav>
+
+<div class="form-author-container">
+	<div th:if="${errorMessage != null}" class="survey-error-message" th:text="${errorMessage}"></div>
+    <div class="form-title">Nuovo Autore</div>
+    <form th:action="@{/admin/authors/save}" method="post" enctype="multipart/form-data" class="author-form" th:object="${author}">
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" th:field="*{name}" id="name" maxlength="100" required placeholder="Inserisci il nome" autocomplete="off"/>
+            <div class="form-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="surname">Cognome</label>
+            <input type="text" th:field="*{surname}" id="surname" maxlength="100" required placeholder="Inserisci il cognome" autocomplete="off"/>
+            <div class="form-error" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+        </div>
+        <div class="form-group">
+            <label for="dateBirth">Data di nascita</label>
+            <input type="date" th:field="*{dateBirth}" id="dateBirth" pattern="\d{4}-\d{2}-\d{2}" required placeholder="gg-mm-aaaa" max="${T(java.time.LocalDate).now()}" />
+            <div class="form-error" th:if="${#fields.hasErrors('dateBirth')}" th:errors="*{dateBirth}"></div>
+        </div>
+        <div class="form-group">
+            <label for="dateDeath">Data di morte</label>
+            <input type="date" th:field="*{dateDeath}" id="dateDeath" pattern="\d{4}-\d{2}-\d{2}" placeholder="gg-mm-aaaa" max="${T(java.time.LocalDate).now()}" />
+            <div class="form-error" th:if="${#fields.hasErrors('dateDeath')}" th:errors="*{dateDeath}"></div>
+        </div>
+        <div class="form-group">
+            <label for="nationality">Nazionalità</label>
+            <select th:field="*{nationality}" id="nationality" required>
+                <option value="" disabled th:if="*{nationality} == null" selected>-- seleziona nazionalità --</option>
+				<option th:each="nation : ${T(it.uniroma3.siwbooks.constant.Nationality).values()}"
+				        th:value="${nation.name()}"
+				        th:text="${#strings.capitalize(nation.name().toLowerCase())}"></option>
+            </select>
+            <div class="form-error" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></div>
+        </div>
+        <div class="form-group">
+            <label for="photo">Foto autore</label>
+            <input type="file" id="photo" name="photoFile" accept="image/*"/>
+            <div class="form-error" th:if="${photoError != null}" th:text="${photoError}"></div>
+        </div>
+        <button type="submit" class="btn-submit-author">Salva Autore</button>
+        <div class="form-error" th:if="${#fields.hasGlobalErrors()}" th:errors="*{global}"></div>
+    </form>
+	<a th:href="@{/admin/books}" class="back-link">Torna all'elenco autori</a>
+</div>
+<footer class="footer">
+    <div class="footer-content">
+        <p>Siwbooks - La tua libreria digitale</p>
+    </div>
+</footer>
+</body>
+</html>
+

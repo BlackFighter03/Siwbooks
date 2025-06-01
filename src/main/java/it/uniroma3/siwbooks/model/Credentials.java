@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Credentials {
@@ -18,8 +19,11 @@ public class Credentials {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+	@NotEmpty
 	private String username;
+	@NotEmpty
 	private String password;
+	@NotEmpty
 	private String role;
 
 	@OneToOne

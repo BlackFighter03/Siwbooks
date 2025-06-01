@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -21,6 +22,7 @@ public class Survey {
 	private Long id;
 	
 	@NotNull
+	@NotEmpty
 	private String title;
 
 	@Min(1)
@@ -28,6 +30,7 @@ public class Survey {
 	private Integer mark;
 	
 	@NotNull
+	@NotEmpty
 	@Column(length = 1000)
 	private String text;
 	

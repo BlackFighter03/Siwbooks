@@ -89,6 +89,7 @@ body {
 
 .details-container {
     flex: 1 0 auto;
+	align-self: center;
     width: 100%;
     max-width: 1600px;
     /* Più spazio per 2K */
@@ -155,12 +156,62 @@ body {
     align-items: center;
 }
 
+
+.button-add-image {
+	margin-bottom: 1.2rem;
+}
+
 .images-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1.2rem;
     width: 100%;
     margin-bottom: 1.5rem;
+}
+
+/* Contenitore immagine con posizione relativa per il pulsante delete */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Stile pulsante delete */
+.delete-image-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 28px;
+    line-height: 1;
+    z-index: 2;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.delete-image-btn:hover {
+    background: var(--primary);
+    transform: scale(1.1);
+}
+
+/* Assicurati che l'immagine occupi tutto lo spazio disponibile */
+.book-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Hover effect sulla card immagine */
+.image-item:hover .delete-image-btn {
+    opacity: 1;
 }
 
 @media (min-width: 1400px) {
@@ -221,7 +272,28 @@ body {
     border-radius: 8px;
     margin-bottom: 1.5rem;
 }
-
+input#addAuthorToggle:checked ~ .modal-bg#addAuthorModal {
+    display: flex;
+}
+/* Stile pulsante apertura */
+.show-form-btn {
+    background: var(--accent);
+    color: #fff;
+	text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    padding: 0.65rem 2.1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .7px;
+    box-shadow: 0 2px 12px #a27b5c22;
+    cursor: pointer;
+    transition: background 0.19s;
+    display: inline-block;
+}
+.show-form-btn:hover {
+    background: var(--primary);
+}
 /* BOOK INFO, AUTHORS, SURVEYS */
 .book-info {
     padding: 0.2rem 0 0 0;
@@ -283,6 +355,7 @@ body {
 .survey-rating {
     color: var(--accent);
     font-weight: 600;
+	margin-bottom: 1.2rem;
 }
 .survey-empty {
     font-style: italic;
@@ -374,12 +447,12 @@ body {
     outline: none;
 }
 .survey-delete-btn {
-    margin-top: 0.3em;
     background: var(--accent);
     color: #fff;
+	text-decoration: none;
     border: none;
     border-radius: 8px;
-    padding: 0.73em 2.3em;
+    padding: 0.6em 2.3em;
     font-size: 1.07rem;
     font-family: inherit;
     font-weight: bold;
@@ -411,7 +484,172 @@ body {
         max-width: 100%;
     }
 }
-
+/* MODALE AGGIUNGI FOTO */
+.modal-overlay {
+    display: flex;
+    position: fixed;
+    z-index: 3002;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(44,54,57,0.25);
+    align-items: center;
+    justify-content: center;
+    transition: background 0.22s;
+}
+.modal-content {
+    background: var(--card-bg,#fff);
+    border-radius: 13px;
+    padding: 2.3rem 2.1rem 1.6rem 2.1rem;
+    max-width: 370px;
+    width: 92vw;
+    box-shadow: 0 10px 34px #1114;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+}
+.modal-title {
+    font-family: 'Merriweather', serif;
+    font-size: 1.26rem;
+    color: var(--primary,#2C3639);
+    margin-bottom: 1.1rem;
+    font-weight: 700;
+}
+.close-modal-link {
+    display: block;
+    font-size: 1.6rem;
+    color: var(--secondary,#3F4E4F);
+    text-decoration: none;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 18px; right: 23px;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    line-height: 32px;
+    text-align: center;
+    transition: background .14s, color .14s;
+    cursor: pointer;
+}
+.close-modal-link:hover,
+.close-modal-link:focus {
+    background: var(--accent,#A27B5C);
+    color: #fff;
+    outline: none;
+}
+.add-photo-form label {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--secondary,#3F4E4F);
+    display: block;
+    margin-bottom: .39em;
+    margin-top: 0.5rem;
+}
+.add-photo-form input[type="file"] {
+    display: block;
+    margin:1.1rem auto 0.65rem auto;
+    font-size: 1rem;
+}
+.add-photo-form .form-error {
+    color: #b31217;
+    font-size: .99rem;
+    background: #fff5f5;
+    border-radius: 5px;
+    padding: 0.22em 0.6em;
+    margin-bottom: .7em;
+}
+.modal-actions {
+    display: flex; 
+    gap: 0.8rem;
+    margin-top: 1.18rem;
+    justify-content: center;
+}
+.btn-submit-photo, .btn-cancel-modal {
+    background: var(--accent,#A27B5C);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.68em 1.6em;
+    font-size: 1.07rem;
+    font-weight: 600;
+    letter-spacing: 0.18px;
+    box-shadow: 0 1px 7px #A27B5C22;
+    transition: background .13s;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-cancel-modal {
+    background: var(--gray-light,#e6e2d7);
+    color: var(--secondary,#3F4E4F);
+    font-weight: 600;
+    border: 1.5px solid var(--accent,#A27B5C);
+}
+.btn-cancel-modal:hover,
+.btn-cancel-modal:focus {
+    background: var(--secondary,#3F4E4F); color: #fff; border-color: var(--secondary,#3F4E4F);
+}
+.btn-submit-photo:hover,
+.btn-submit-photo:focus {
+    background: var(--primary,#2C3639);
+    color: #fff;
+}
+@media (max-width: 600px) {
+    .modal-content { padding: 1.25rem 0.5rem 1rem 0.5rem;}
+    .modal-title { font-size: 1.06rem;}
+}
+.edit-book-form label {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--secondary,#3F4E4F);
+    display: block;
+    margin-bottom: .36em;
+    margin-top: 0.7em;
+    text-align: left;
+}
+.edit-book-form input[type="text"],
+.edit-book-form input[type="number"] {
+    width: 15vw;
+    padding: 0.59em 2em;
+    border-radius: 6px;
+    border: 1.18px solid var(--gray-light,#e6e2d7);
+    margin-bottom: 1.02rem;
+    font-size: 1.02rem;
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg,#DCD7C9);
+    color: var(--primary,#2C3639);
+    transition: border .13s;
+}
+.edit-book-form input:focus {
+    border: 1.27px solid var(--accent,#A27B5C);
+    outline: none;
+}
+.edit-book-form .form-error {
+    color: #b31217;
+    font-size: .99rem;
+    background: #fff5f5;
+    border-radius: 5px;
+    padding: 0.22em 0.6em;
+    margin-bottom: .7em;
+}
+.btn-submit-edit{
+    background: var(--accent,#A27B5C);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.68em 1.6em;
+    font-size: 1.07rem;
+    font-weight: 600;
+    letter-spacing: 0.18px;
+    box-shadow: 0 1px 7px #A27B5C22;
+    transition: background .13s;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+@media (max-width: 600px) {
+    .modal-content { padding: 1.25rem 0.5rem 1rem 0.5rem;}
+    .modal-title { font-size: 1.06rem;}
+}
 /* FOOTER */
 .footer {
     flex-shrink: 0;

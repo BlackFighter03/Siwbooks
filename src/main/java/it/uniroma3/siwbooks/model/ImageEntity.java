@@ -20,6 +20,14 @@ public class ImageEntity {
 	@NotNull
 	private String name;
 
+	public ImageEntity() {
+		this(null);
+	}
+	
+	public ImageEntity(String name) {
+		this.name = PATH + name;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -15,6 +15,9 @@ public class SurveyService {
 
 	@Autowired
 	private SurveyRepository surveyRepository;
+	
+	@Autowired
+	private BookService bookService;
 
 	public Survey findByUserAndBook(User user, Book book) {
 		return this.surveyRepository.findByUserAndBook(user, book).orElse(null);
@@ -29,8 +32,19 @@ public class SurveyService {
 		return this.surveyRepository.findById(surveyId).orElse(null);
 	}
 
+
 	public void deleteSurvey(Survey survey) {
 		this.surveyRepository.delete(survey);
+		
+	}
+
+	public boolean existsSurveyForBook(Long surveyId, Long bookId) {
+		Survey survey = this.surveyRepository.findById(bookId).orElse(null);
+		return survey != null && survey.getBook().getId() == bookId;
+	}
+
+	public void deleteSurveyById(Long surveyId) {
+		this.surveyRepository.deleteById(surveyId);
 		
 	}
 }

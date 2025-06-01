@@ -112,9 +112,32 @@ body {
     letter-spacing: 0.8px;
     font-weight: 700;
 }
+.add-book-btn {
+    display: inline-block;
+	text-decoration: none;
+    margin: 0 auto 2rem auto;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7em 1.5em;
+    font-size: 1.06rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 1px 8px #a27b5c22;
+    transition: background 0.16s, color 0.16s;
+    cursor: pointer;
+    text-align: center;
+}
+.add-book-btn:hover, .add-book-btn:focus {
+    background: var(--secondary);
+    color: #fff;
+}
+
 .books-grid {
 	flex-direction: row;
-    display: flex;
+	display: flex;
+	justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2.2rem 2rem;
 }
@@ -123,8 +146,8 @@ body {
     border-radius: 13px;
     box-shadow: 0 3px 14px rgba(44,54,57,0.09);
     padding: 1.25rem 1.1rem 1rem 1.1rem;
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
     align-items: center;
     border-left: 4px solid var(--accent);
     transition: transform 0.22s, box-shadow 0.21s;
@@ -182,6 +205,35 @@ body {
     background: var(--secondary);
     color: #fff;
 }
+
+.view-links {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly}
+
+.view-admin-link {
+    background: var(--accent);
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: 0.55em 1.4em;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.2em;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+    letter-spacing: 0.6px;
+    box-shadow: 0 2px 12px #a27b5c22;
+    border: none;
+    transition: background 0.19s;
+    
+}
+
+.view-admin-link:hover {
+    background: var(--secondary);
+    color: #fff;
+}
+
 .no-books {
     text-align: center;
     margin-top: 3rem;

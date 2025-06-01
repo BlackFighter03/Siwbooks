@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Crea nuovo libro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Merriweather:700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/formNewBook.css}"/>
+</head>
+<body>
+	<header class="header">
+	    <nav class="navbar">
+		    <div class="navbar-content">
+				<div class="navbar-links-group">
+		            <h1 class="navbar-Title">SiwBooks</h1>
+				</div>
+				<div class="navbar-links-group">
+					<a th:href="@{'/admin/' + ${user.id}}" class="navbar-link">Profilo</a>
+					<a th:href="@{/admin/books}" class="navbar-link active">Libri</a>
+					<a th:href="@{/admin/authors}" class="navbar-link">Autori</a>
+		            <a th:href="@{/logout}" class="navbar-link">Esci</a>
+		        </div>
+		    </div>
+		</nav>
+	</header>
+	<section class="form-author-container">
+	    <form class="author-form" 
+	          th:action="@{/admin/books/save}" 
+	          th:object="${book}" 
+	          method="post" 
+	          enctype="multipart/form-data">
+	        
+	        <h1 class="form-title">Crea un nuovo Libro</h1>
+	        <span th:if="${msgError}" class="error-message" th:text="${msgError}"></span>
+	        <!-- Titolo -->
+	        <div class="form-group">
+	            <label for="title">Titolo</label>
+	            <input type="text" 
+	                   th:field="*{title}" 
+	                   id="title" 
+	                   required/>
+	            <span class="form-error" 
+	                  th:if="${#fields.hasErrors('title')}" 
+	                  th:errors="*{title}"></span>
+	        </div>
+	        <!-- Anno pubblicazione -->
+	        <div class="form-group">
+	            <label for="yearPubblication">Anno di pubblicazione</label>
+	            <input type="number" 
+	                   th:field="*{yearPubblication}" 
+	                   id="yearPubblication" 
+	                   min="1000" 
+	                   max="2025" 
+	                   required/>
+	            <span class="form-error" 
+	                  th:if="${#fields.hasErrors('yearPubblication')}" 
+	                  th:errors="*{yearPubblication}"></span>
+	        </div>
+	        <!-- Autori -->
+	        <div class="form-group">
+	            <label for="authors">Autori</label>
+	            <select th:field="*{authors}" 
+	                    id="authors" 
+	                    multiple 
+	                    required>
+	                <option th:each="author : ${authors}" 
+	                        th:value="${author.id}" 
+	                        th:text="${author.name + ' ' + author.surname}"></option>
+	            </select>
+	            <span class="form-error" 
+	                  th:if="${#fields.hasErrors('authors')}" 
+	                  th:errors="*{authors}"></span>
+	        </div>
+	        <!-- Immagini -->
+	        <div class="form-group">
+	            <label for="imageFiles">Immagini</label>
+	            <input type="file" 
+	                   name="imageFiles" 
+	                   id="imageFiles" 
+	                   multiple 
+	                   accept="image/*" 
+	                   required/>
+	        </div>
+	        <button type="submit" class="btn-submit-author">Crea Libro</button>
+	    </form>
+	    
+	    <a th:href="@{/admin/books}" class="back-link">Torna all'elenco libri</a>
+	</section>
+	<footer class="footer">
+	    <div class="footer-content">
+	        <p>Siwbooks - La tua libreria digitale</p>
+	    </div>
+	</footer>
+</body>
+</html>

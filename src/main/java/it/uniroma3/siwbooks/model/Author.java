@@ -7,8 +7,9 @@ import java.util.Objects;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotEmpty;
 import it.uniroma3.siwbooks.constant.Nationality;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
@@ -28,13 +30,13 @@ public class Author {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@NotBlank
+	@NotEmpty
 	private String name;
-	
-	@NotBlank
+	@NotEmpty
 	private String surname;
 	
 	@NotNull
+	@Past
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dateBirth;
 	
@@ -42,11 +44,11 @@ public class Author {
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate dateDeath;
 
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Nationality nationality;
 	
-
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private ImageEntity photo;
 	
 	@ManyToMany(mappedBy = "authors")
