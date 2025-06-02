@@ -22,7 +22,7 @@ public class BookService {
 	}
 
 	public Book getBook(Long id) {
-		return bookRepository.findById(id).get();
+		return bookRepository.findById(id).orElse(null);
 	}
 
 	public void saveBook(@Valid Book book) {

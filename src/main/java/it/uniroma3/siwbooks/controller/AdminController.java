@@ -1,8 +1,6 @@
 package it.uniroma3.siwbooks.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,26 +56,27 @@ public class AdminController {
 	
 	@PostMapping("/{id}/modifyUser")
 	public String updateInfo(@PathVariable("id") Long id, @ModelAttribute @Valid User user, BindingResult bindingResult, Model model) {
+		if (!verifyAdmin(id, userService.getCurrentUser()))
+			return "redirect:/login";
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("user", userService.getCurrentUser());
 			return "admin/formModifyUser.html";
 		}
-		if (!verifyAdmin(id, userService.getCurrentUser()))
-			return "redirect:/login";
 		this.userService.saveUser(user);
 		return "redirect:/admin/" + user.getId();
 	}
 	
 	@PostMapping("/{id}/changePassword")
 	public String updateCredentials(@PathVariable("id") Long id, @RequestParam @Valid String confirmPwd, @RequestParam @Valid String newPwd, Model model) {
+		User user = userService.getCurrentUser();
+		if (!verifyAdmin(id, user))
+			return "redirect:/login";
+		
 		if(newPwd == null || confirmPwd == null || newPwd.equals("") || confirmPwd.equals("") || !newPwd.equals(confirmPwd)) {
 			model.addAttribute("msgError", "Il campo della nuova password è vuota");
 			model.addAttribute("user", userService.getCurrentUser());
 			return "admin/profile.html";
 		}
-		User user = userService.getCurrentUser();
-		if (!verifyAdmin(id, user))
-			return "redirect:/login";
 		Credentials credentials = this.credentialsService.getCredentialsByUser(user);
 		this.credentialsService.saveCredentials(credentials);
 		return "redirect:/admin/" + user.getId();

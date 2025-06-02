@@ -30,7 +30,8 @@ public enum Nationality {
     IRLANDESE("Irlandese"),
     MESSICANA("Messicana"),
     ARGENTINA("Argentina"),
-    SUDAFRICANA("Sudafricana");
+    SUDAFRICANA("Sudafricana"),
+	SCOZZESE("Scozzese");
 
     private final String displayName;
 

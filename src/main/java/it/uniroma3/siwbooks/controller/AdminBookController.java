@@ -155,6 +155,8 @@ public class AdminBookController {
 		if (!verifyAdmin(userService.getCurrentUser()) || !this.bookService.existsBook(id))
 			return "redirect:/login";
 		Book book = this.bookService.getBook(id);
+		if(book == null)
+			return "error.html";
 		if(title != null && !title.isEmpty())
 			book.setTitle(title);
 		if(yearPubblication != null)
@@ -194,7 +196,7 @@ public class AdminBookController {
     @GetMapping("/{idBook}/authors/{idAuthor}/add")
 	public String addBookToAuthor(@PathVariable("idAuthor") Long idAuthor, @PathVariable("idBook") Long idBook) {
 		if (!verifyAuthorAndBook(idAuthor, idBook))
-			return "redirect:/admin/authors/" + idAuthor;
+			return "error.html";
 		User user = userService.getCurrentUser();
 		if (!verifyAdmin(user))
 			return "redirect:/login";
@@ -219,7 +221,7 @@ public class AdminBookController {
     @GetMapping("/{idBook}/authors/{idAuthor}/delete")
 	public String deleteAuthorFromBook(@PathVariable("idAuthor") Long idAuthor, @PathVariable("idBook") Long idBook) {
 		if (!verifyAuthorAndBook(idAuthor, idBook))
-			return "redirect:/admin/authors/" + idAuthor;
+			return "error.html";
 		User user = userService.getCurrentUser();
 		if (!verifyAdmin(user))
 			return "redirect:/login";

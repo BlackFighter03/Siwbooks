@@ -33,7 +33,7 @@ public class ImageEntityController {
 	@GetMapping("/admin/books/{bookId}/images/{imgId}/delete")
 	public String deletePhotoFromBook(@PathVariable("bookId") Long bookId, @PathVariable("imgId") Long imgId) {
 		if (!this.bookService.existsBook(bookId) || !this.imageEntityService.existsImage(imgId))
-			return "redirect:/login";
+			return "error.html";
 
 		if (!this.bookService.existsBookWithImage(bookId, imgId))
 			return "redirect:/admin/books/" + bookId;
@@ -49,7 +49,7 @@ public class ImageEntityController {
 	public String addPhototoBook(@PathVariable("bookId") Long bookId, @RequestParam("imageFile") MultipartFile file, Model model) {
 		
 			if(!this.bookService.existsBook(bookId))
-				return "redirect:/login";
+				return "error.html";
 			Book book = this.bookService.getBook(bookId);
 		try {
 			String name = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
