@@ -41,7 +41,7 @@ public class AdminController {
 		User user = userService.getCurrentUser();
 		if(!verifyAdmin(id, user))
 			return "redirect:/login";
-		model.addAttribute("user", user);
+		
 		model.addAttribute("showPasswordModal", showPasswordModal);
 		return "admin/profile.html";
 	}
@@ -50,7 +50,6 @@ public class AdminController {
 	public String showFormUpdateInfo(@PathVariable("id") Long id, Model model) {
 		if (!verifyAdmin(id, userService.getCurrentUser()))
 			return "redirect:/login";
-		model.addAttribute("user", userService.findById(id));
 		return "admin/formModifyUser.html";
 	}
 	
@@ -59,7 +58,6 @@ public class AdminController {
 		if (!verifyAdmin(id, userService.getCurrentUser()))
 			return "redirect:/login";
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("user", userService.getCurrentUser());
 			return "admin/formModifyUser.html";
 		}
 		this.userService.saveUser(user);
@@ -74,7 +72,6 @@ public class AdminController {
 		
 		if(newPwd == null || confirmPwd == null || newPwd.equals("") || confirmPwd.equals("") || !newPwd.equals(confirmPwd)) {
 			model.addAttribute("msgError", "Il campo della nuova password è vuota");
-			model.addAttribute("user", userService.getCurrentUser());
 			return "admin/profile.html";
 		}
 		Credentials credentials = this.credentialsService.getCredentialsByUser(user);

@@ -23,8 +23,8 @@ public class BookController {
 	@Autowired
 	private UserService userService;
 	
-	private boolean verifyBookAndUser(Book book, User user) {
-		return book != null && user != null;
+	private boolean verifyBookAndUser(Book book) {
+		return book != null && userService.getCurrentUser() != null;
 	}
 	
 	@GetMapping("/books")
@@ -47,7 +47,7 @@ public class BookController {
 		User user = userService.getCurrentUser(); 
 		if(user == null)
 			return "redirect:/login";
-		model.addAttribute("user", user);
+		
 		model.addAttribute("books", this.bookService.getBooks());
 		return "user/books.html";
 	}
@@ -59,13 +59,12 @@ public class BookController {
     public String showBookForUser(@PathVariable("id") Long id, Model model) {
         Book book = this.bookService.getBook(id);
         User user = userService.getCurrentUser(); 
-        if (!verifyBookAndUser(book, user)) {
+        if (!verifyBookAndUser(book)) {
             return "redirect:/login";
         }
         
         // Verifica se l'utente corrente ha già recensito questo libro
         Survey surveyUser = this.surveyService.findByUserAndBook(user, book);
-        model.addAttribute("user", user);
         model.addAttribute("book", book);
         model.addAttribute("surveyUser", surveyUser);
         

@@ -64,7 +64,7 @@ public class AdminBookController {
 		User user = userService.getCurrentUser(); 
 		if(!this.verifyAdmin(user))
 			return "redirect:/login";
-		model.addAttribute("user", user);
+		
 		model.addAttribute("books", this.bookService.getBooks());
 		return "admin/books.html";
 	}
@@ -74,7 +74,7 @@ public class AdminBookController {
     	User user = this.userService.getCurrentUser();
         if(!verifyAdmin(user))
         	return "redirect:/login";
-        model.addAttribute("user", user);
+        
         model.addAttribute("authors", authorService.getAuthors());
         model.addAttribute("book", new Book());
         return "admin/formNewBook.html";
@@ -91,7 +91,7 @@ public class AdminBookController {
         if (!verifyAdmin(user))
             return "redirect:/login";
             
-        model.addAttribute("user", user);
+        
         model.addAttribute("authors", authorService.getAuthors());
 
         // Validazione
@@ -141,7 +141,6 @@ public class AdminBookController {
             return "redirect:/login";
         }
         
-        model.addAttribute("user", user);
         model.addAttribute("book", book);
         model.addAttribute("showModalAddPhoto", showModalAddPhoto);
         model.addAttribute("showModalEditBook", showModalEditBook);
@@ -186,7 +185,6 @@ public class AdminBookController {
             return "redirect:/login";
         }
         
-        model.addAttribute("user", user);
         model.addAttribute("book", book);
         model.addAttribute("authors", this.authorService.getAvaibleAuthors(id));
         return "admin/addAuthorToBook";
@@ -212,7 +210,6 @@ public class AdminBookController {
             return "redirect:/login";
         }
         
-        model.addAttribute("user", user);
         model.addAttribute("book", book);
         model.addAttribute("authors", book.getAuthors());
         return "admin/removeAuthorToBook";

@@ -26,9 +26,6 @@ public class ImageEntityController {
 
 	@Autowired
 	private ImageEntityService imageEntityService;
-	
-	@Autowired
-	private UserService userService;
 
 	@GetMapping("/admin/books/{bookId}/images/{imgId}/delete")
 	public String deletePhotoFromBook(@PathVariable("bookId") Long bookId, @PathVariable("imgId") Long imgId) {
@@ -60,7 +57,6 @@ public class ImageEntityController {
 			return "redirect:/admin/books/" + bookId;
 		} catch (IOException e) {
 			model.addAttribute("book", book);
-			model.addAttribute("user", userService.getCurrentUser());
 			model.addAttribute("showModalAddPhoto", true);
 			model.addAttribute("msgPhotoError", "Inserisci una foto");
 			return "admin/book.html";

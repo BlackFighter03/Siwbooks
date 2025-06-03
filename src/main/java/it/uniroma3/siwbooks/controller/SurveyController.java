@@ -65,7 +65,7 @@ public class SurveyController {
             
         } catch (Exception e) {
         	model.addAttribute("book", book);
-        	model.addAttribute("user", user);
+        	
             model.addAttribute("errorMessage", "Errore nell'inserimento della recensione: " + e.toString());
             return "user/book.html";
         }
@@ -86,8 +86,7 @@ public class SurveyController {
             return "redirect:/user/books/" + bookId;
             
         } catch (Exception e) {
-        	model.addAttribute("book", bookService.getBook(bookId));
-        	model.addAttribute("user", user);
+        	model.addAttribute("book", bookService.getBook(bookId));        	
             model.addAttribute("errorMessage", "Errore nella cancellazione della recensione: " + e.toString());
             return "user/book.html";
         }
@@ -107,8 +106,7 @@ public class SurveyController {
             return "redirect:/admin/books/" + bookId;
             
         } catch (Exception e) {
-        	model.addAttribute("book", bookService.getBook(bookId));
-        	model.addAttribute("user", user);
+        	model.addAttribute("book", bookService.getBook(bookId));        	
             model.addAttribute("errorMessage", "Errore nella cancellazione della recensione: " + e.toString());
             return "admin/book.html";
         }

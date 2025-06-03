@@ -39,7 +39,6 @@ public class UserController {
 		User user = userService.getCurrentUser();
 		if(!verifyId(id, user.getId()))
 			return "redirect:/login";
-		model.addAttribute("user", user);
 		model.addAttribute("showPasswordModal", showPasswordModal);
 		return "user/profile.html";
 	}
@@ -48,7 +47,6 @@ public class UserController {
 	public String showFormUpdateInfo(@PathVariable("id") Long id, Model model) {
 		if (!verifyId(id, userService.getCurrentUser().getId()))
 			return "redirect:/login";
-		model.addAttribute("user", userService.findById(id));
 		return "user/formModifyUser.html";
 	}
 	
@@ -68,7 +66,6 @@ public class UserController {
 	public String updateCredentials(@PathVariable("id") Long id, @RequestParam @Valid String confirmPwd, @RequestParam @Valid String newPwd, Model model) {
 		if(newPwd == null || confirmPwd == null || newPwd.equals("") || confirmPwd.equals("") || !newPwd.equals(confirmPwd)) {
 			model.addAttribute("msgError", "Il campo della nuova password è vuota");
-			model.addAttribute("user", userService.getCurrentUser());
 			return "user/profile.html";
 		}
 		User user = userService.getCurrentUser();
